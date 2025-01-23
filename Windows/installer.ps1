@@ -1,1 +1,1 @@
-choco install chrome-remote-desktop-host googlechrome -y
+choco install chrome-remote-desktop-host -y -r --no-progress --ignore-checksums
