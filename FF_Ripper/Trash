@@ -58,25 +58,12 @@ $BASICCMD = {
    Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=16X56s-I4xQ8VsSbQ8b6YcXQ8yEodKPH-&export=download&confirm=t&uuid=d90abb17-ff7a-4ddb-8f90-7b723416b8d2" -OutFile "ffripper.reg"; reg import "ffripper.reg"; Remove-Item -Path "ffripper.reg"
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'NinjaRipper.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"; $shortcut.Save()
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Noesis.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\noesis\Noesis.exe"; $shortcut.Save()
-   Start-Process -FilePath "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"
-   Add-Type -TypeDefinition "using System; using System.Runtime.InteropServices; public class M { [DllImport('user32.dll')] public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo); public const int MOUSEEVENTF_LEFTDOWN = 0x0002; public const int MOUSEEVENTF_LEFTUP = 0x0004; public static void Click(int x, int y) { mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)x, (uint)y, 0, 0); mouse_event(MOUSEEVENTF_LEFTUP, (uint)x, (uint)y, 0, 0); } }"; [M]::Click(660,300)
    Invoke-Expression $code > $null 2>&1
    Write-Host "Vm Id $INSTANCE"
    .\temp.ahk > $null 2>&1
    Write-Host "Running For $time hours"
    $i = [int]$time*60; do { Write-Host $i; Sleep 60; $i-- } while ($i -gt 0)
    exit
-}
-
-$PROCMD = {
-   cd C:\Users\$Env:USERNAME\Documents; write-host("Started Downloading Resources...")
-   Start-BitsTransfer -Source 'https://drive.usercontent.google.com/download?id=1IsuJKnkSQ7wI6_kEjNmV9ixRRA0ozZcd&export=download&authuser=0&confirm=t&uuid=43d2e2a7-36ea-4dcb-bbd8-feaf9a61dbce&at=AIrpjvNtjLgoWaO3g4z8CglSi_um%3A1736506793305' -Destination ffripper.zip
-   Write-host("Downloading Resources Done"); Write-Host "Setting Up Resources..." ; 7z x ffripper.zip -y > $null 2>&1
-   choco install chrome-remote-desktop-host -y -r --no-progress --ignore-checksums > $null 2>&1
-   New-Object -ComObject WScript.Shell | %{ $_.CreateShortcut("C:\Users\$Env:USERNAME\Documents\GWKANG.lnk") } | %{ $_.TargetPath = "C:\Users\$Env:USERNAME\Desktop\GWKANG"; $_.Save() } > $null 2>&1
-   New-Item -Path $MYFOLDER -ItemType Directory > $null 2>&1; Start-Process $NINJARIPPER; New-Item -ItemType SymbolicLink -Target $NINJARIPPER -Path $LNKNINJARIPPER > $null 2>&1; New-Item -ItemType SymbolicLink -Target $NOESIS -Path $LNKNOESIS > $null 2>&1; New-Item -ItemType SymbolicLink -Target $SMARTGAGA -Path $LNKSMARTGAGA > $null 2>&1
-   Write-Output "Setting Up Resources Done"
-   Write-Output "Logging in $ffserver server"; Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=1IsuJKnkSQ7wI6_kEjNmV9ixRRA0o" -OutFile ffserver.7z ; 7z x ffserver.7z -y > $null 2>&1 ; adb push "C:\Users\$Env:USERNAME\Documents\ffserver\$ffserver" "/storage/emulated/0/com.garena.msdk/guest100067.dat" ; Remove-Item -Path "C:\Users\$Env:USERNAME\Documents\ffserver" -Recurse -Force
 }
 
 
