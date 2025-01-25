@@ -33,16 +33,6 @@ $currentTime = (Get-Date).ToUniversalTime().AddHours(5.5).ToString("hh:mm")
 $INSTANCE = $RepoName + $currentTime
 $crdpin = " -pin=123456"
 $code = $code + $INSTANCE + $crdpin
-$MYFOLDER = "C:\Users\$Env:USERNAME\Desktop\GWKANG"
-$NINJARIPPER = "C:\Users\$Env:USERNAME\Documents\ninjaripper\x86\ninjaripper.exe"
-$SMARTGAGA = "C:\Users\$Env:USERNAME\Documents\ProjectTitan\Engine\ProjectTitan.exe"
-$NOESIS = "C:\Users\$Env:USERNAME\Documents\noesis\Noesis64.exe"
-$LNKSMARTGAGA = "C:\Users\$Env:USERNAME\Desktop\Free Fire.lnk"
-$LNKNINJARIPPER = "C:\Users\$Env:USERNAME\Desktop\Ninjaripper.lnk"
-$LNKNOESIS = "C:\Users\$Env:USERNAME\Desktop\Noesis.lnk"
-$sevenZipPath = "C:\Program Files\7-Zip\7z.exe"
-$archivePath = "C:\Users\$Env:USERNAME\Documents\ffripper.zip"
-$destinationPath = "C:\Users\$Env:USERNAME\Documents"
 
 # Authorization
 if($PASSW -eq 'fv8454786runneradminFreeFireRipper'){
