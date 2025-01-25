@@ -23,8 +23,7 @@ $RepoName = $jsonObject.repository.name
 $ffserver = $jsonObject.inputs.ffserver
 $time = $jsonObject.inputs.time
 $code = $jsonObject.inputs.code
-$code = [string]$code
-$code = $code.Substring(0, $code.Length - 17)
+if ($code -match '--code="([^"]+)"') {$code2 = '--code='+$matches[1]}
 $PASS = $Env:COMPUTERNAME
 $PASS1 = "8454786"
 $PASS2 = $PASS.SubString(0,2)
@@ -32,8 +31,7 @@ $PASS3 = $Env:USERNAME
 $PASSW = $PASS2 + $PASS1 + $PASS3 + $RepoName
 $currentTime = (Get-Date).ToUniversalTime().AddHours(5.5).ToString("hh:mm") 
 $INSTANCE = $RepoName + $currentTime
-$crdpin = " -pin=123456"
-$code = $code + $INSTANCE + $crdpin
+$code = '& \"${Env:PROGRAMFILES(X86)}\\Google\\Chrome Remote Desktop\\CurrentVersion\\remoting_start_host.exe\" '+$code2+' --redirect-url=\"https://remotedesktop.google.com/_/oauthredirect\" --name=$Env:COMPUTERNAME='+$INSTANCE+' --pin=123456'
 
 
 if($PASSW -eq 'fv8454786runneradminFreeFireRipper'){
@@ -53,7 +51,7 @@ $BASICCMD = {
    Start-Process -FilePath "powershell.exe" -ArgumentList {-Command "Start-BitsTransfer -Source 'https://drive.usercontent.google.com/download?id=1V71v1vioZ8A506Hs74wsZV0A9wot1wrG&export=download&authuser=0&confirm=t&uuid=d08f0bcf-7727-457f-94cb-521a7c504898&at=AIrpjvM0KwmkzKFFGE9LTbtjd1Z7%3A1737716025274' -Destination ffripper.7z"; "choco install chrome-remote-desktop-host directx autohotkey -y -r --no-progress --ignore-checksums > $null 2>&1"}
    choco install bluestacks --version 5.21.600.1019 -y -r --no-progress --ignore-checksums > $null 2>&1
    Write-host("Installing BlueStacks Done"); Write-Host "Setting Up Resources..." 
-   7z x ffripper.7z -y  > $null 2>&1
+   7z x ffripper.7z -y -p$version > $null 2>&1
    Write-Host "Setting Up Resources Done"
    Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=16X56s-I4xQ8VsSbQ8b6YcXQ8yEodKPH-&export=download&confirm=t&uuid=d90abb17-ff7a-4ddb-8f90-7b723416b8d2" -OutFile "ffripper.reg"; reg import "ffripper.reg"; Remove-Item -Path "ffripper.reg"
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'NinjaRipper.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"; $shortcut.Save()
@@ -64,6 +62,22 @@ $BASICCMD = {
    Write-Host "Running For $time hours"
    $i = [int]$time*60; do { Write-Host $i; Sleep 60; $i-- } while ($i -gt 0)
    exit
+}
+
+$PROCMD = {
+   cd C:\; write-host("Installing BlueStacks...")
+   Start-Process -FilePath "powershell.exe" -ArgumentList {-Command "Start-BitsTransfer -Source 'https://drive.usercontent.google.com/download?id=1V71v1vioZ8A506Hs74wsZV0A9wot1wrG&export=download&authuser=0&confirm=t&uuid=d08f0bcf-7727-457f-94cb-521a7c504898&at=AIrpjvM0KwmkzKFFGE9LTbtjd1Z7%3A1737716025274' -Destination ffripper.7z"; "choco install chrome-remote-desktop-host directx autohotkey -y -r --no-progress --ignore-checksums > $null 2>&1"}
+   choco install bluestacks --version 5.21.600.1019 -y -r --no-progress --ignore-checksums > $null 2>&1
+   Write-host("Installing BlueStacks Done"); Write-Host "Setting Up Resources..." 
+   7z x ffripper.7z -y -p$version > $null 2>&1
+   Write-Host "Setting Up Resources Done"
+   Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=16X56s-I4xQ8VsSbQ8b6YcXQ8yEodKPH-&export=download&confirm=t&uuid=d90abb17-ff7a-4ddb-8f90-7b723416b8d2" -OutFile "ffripper.reg"; reg import "ffripper.reg"; Remove-Item -Path "ffripper.reg"
+   $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'NinjaRipper.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"; $shortcut.Save()
+   $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Noesis.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\noesis\Noesis.exe"; $shortcut.Save()
+   Invoke-Expression $code > $null 2>&1
+   Write-Host "Vm Id $INSTANCE"
+   
+   Write-Output "Logging in $ffserver server"; Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=1IsuJKnkSQ7wI6_kEjNmV9ixRRA0o" -OutFile ffserver.7z ; 7z x ffserver.7z -y > $null 2>&1 ; adb push "C:\Users\$Env:USERNAME\Documents\ffserver\$ffserver" "/storage/emulated/0/com.garena.msdk/guest100067.dat" ; Remove-Item -Path "C:\Users\$Env:USERNAME\Documents\ffserver" -Recurse -Force
 }
 
 
