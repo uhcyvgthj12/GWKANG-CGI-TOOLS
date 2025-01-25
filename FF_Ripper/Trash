@@ -11,7 +11,7 @@ $INTRO = @"
  ######    ###  ###        ##    ## ##     ## ##    ##  ######
                                                               
 "@
-Write-Host $INTRO; & {Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False | Out-Null}
+Write-Host $INTRO -ForegroundColor Red; & {Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False | Out-Null}
 
 # My Variables
 $jsonFilePath = "D:\a\_temp\_github_workflow\event.json"
