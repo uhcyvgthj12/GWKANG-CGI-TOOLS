@@ -20,6 +20,7 @@ $jsonContent = Get-Content -Path $jsonFilePath -Raw
 $jsonObject = $jsonContent | ConvertFrom-Json
 $RepoName = $jsonObject.repository.name
 $ffserver = $jsonObject.inputs.ffserver
+$Version = $jsonObject.inputs.version
 $User = $jsonObject.sender.login
 $time = $jsonObject.inputs.time
 $code = $jsonObject.inputs.code
