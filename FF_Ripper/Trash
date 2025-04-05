@@ -45,7 +45,7 @@ if($PASS -eq 'fvrunneradminFreeFireRipper'){
 }
 
 $RUNNR = 'Run, "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"
-Sleep, 1000  
+Sleep, 3000  
 Click, 380 78  
 '
 echo $RUNNR | Out-File -FilePath "c:\temp.ahk"
