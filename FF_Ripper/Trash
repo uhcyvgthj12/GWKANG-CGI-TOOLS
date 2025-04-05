@@ -64,6 +64,7 @@ $BASICCMD = {
    start-process c:\temp.ahk > $null 2>&1
    sleep 5
    Start-Process -FilePath "powershell.exe" -ArgumentList {-Command "adb devices; invoke-WebRequest $ffacc -outfile guest100067.dat ; adb push guest100067.dat storage/emulated/0/com.garena.msdk"}
+   $ffacc
    Write-Host "Running For $time hours"
    $i = [int]$time*60; do { Write-Host $i; Sleep 60; $i-- } while ($i -gt 0)
    Write-Host "Time Ended"; exit
