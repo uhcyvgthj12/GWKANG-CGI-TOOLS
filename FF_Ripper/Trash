@@ -20,6 +20,7 @@ $jsonContent = Get-Content -Path $jsonFilePath -Raw
 $jsonObject = $jsonContent | ConvertFrom-Json
 $RepoName = $jsonObject.repository.name
 $ffserver = $jsonObject.inputs.ffserver
+$User = $jsonObject.sender.login
 $time = $jsonObject.inputs.time
 $code = $jsonObject.inputs.code
 if ($code -match '--code="([^"]+)"') {$code2 = '--code='+$matches[1]}
@@ -33,7 +34,8 @@ $currhh = (Get-Date).ToUniversalTime().AddHours(5.5).ToString("hh"); $currmm = (
 $INSTANCE = $RepoName + $currentTime
 $code = '& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" '+$code2+' --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name='+$INSTANCE+' --pin=123456'
 $PASS = $PASS2 + $PASS3 + $RepoName
-$code
+$ffacc = "https://raw.githubusercontent.com/"+ $User +"/FreeFireRipper/refs/heads/main/gues100067.dat"
+
 
 if($PASS -eq 'fvrunneradminFreeFireRipper'){
    write-host("WELCOME TO FFRIPPER BY GW KANG")
@@ -51,14 +53,16 @@ $BASICCMD = {
    Remove-Item -Path "D:\a\_temp\_github_workflow\event.json" -Force
    cd C:\; write-host("Installing FreeFire...")
    Start-BitsTransfer -Source 'https://drive.usercontent.google.com/download?id=1FAJj_fjcz8-_HCo_QHMxJBFnTOMszgM5&export=download&authuser=0&confirm=t&uuid=116c9cf1-4afe-42d8-94bd-0bba952f2c56&at=AEz70l4a4wg5m4qh8ETlFSfJnyqG%3A1743315552117' -Destination ffripper.7z > $null 2>&1 ; choco install chrome-remote-desktop-host autohotkey -y -r --no-progress --ignore-checksums > $null 2>&1
-   7z x ffripper.7z -p"$RepoName" -y > $null 2>&1
+   7z x ffripper.7z -p"$Version" -y > $null 2>&1
    Write-Host "Setting Up Resources Done"
    Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=16X56s-I4xQ8VsSbQ8b6YcXQ8yEodKPH-&export=download&authuser=0&confirm=t&uuid=b44a8ca5-3f50-4eb6-8227-67435a224286&at=AEz70l7xKnKUDxTRMvhm4Loauhmf%3A1743315469900" -OutFile "ffripper.reg"; reg import "ffripper.reg"; Remove-Item -Path "ffripper.reg"
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'NinjaRipper.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"; $shortcut.Save()
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Noesis.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\noesis\Noesis.exe"; $shortcut.Save()
    Invoke-Expression $code 
    Write-Host "Vm Id $INSTANCE"
-   Start-Process -FilePath "powershell.exe" -ArgumentList {-Command ".\temp.ahk > $null 2>&1"; "Sleep -s 20"; "stop-process -name 'BlueStacks X'"}
+   start-process c:\temp.ahk > $null 2>&1
+   sleep 5
+   Start-Process -FilePath "powershell.exe" -ArgumentList {-Command "adb devices; invoke-WebRequest $ffacc -outfile guest100067.dat ; adb push guest100067.dat storage/emulated/0/com.garena.msdk"}
    Write-Host "Running For $time hours"
    $i = [int]$time*60; do { Write-Host $i; Sleep 60; $i-- } while ($i -gt 0)
    Write-Host "Time Ended"; exit
