@@ -30,7 +30,7 @@ $Day1 = (Get-Date).Year; $Day2 = (Get-Date).DayOfYear; $Day = "$Day1$Day2"
 Get-ChildItem -Path "D:\a\_temp" -Filter *.ps1 | ForEach-Object { $str = (Get-Content $_.FullName)[2] }
 $str = $str.Substring(2)
 $currhh = (Get-Date).ToUniversalTime().AddHours(5.5).ToString("hh"); $currmm = (Get-Date).ToUniversalTime().AddHours(5.5).ToString("mm"); $currentTime = [int]$currhh + [int]$currmm + [int]$Day2 + [int]$Day1 + [int]$currmon 
-$INSTANCE = $RepoName +' '+ $currentTime
+$INSTANCE = $RepoName + $currentTime
 $code = '& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" '+$code2+' --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name='+$INSTANCE+' --pin=123456'
 $PASS = $PASS2 + $PASS3 + $RepoName
 $code
