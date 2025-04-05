@@ -59,10 +59,10 @@ $BASICCMD = {
    Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=16X56s-I4xQ8VsSbQ8b6YcXQ8yEodKPH-&export=download&authuser=0&confirm=t&uuid=b44a8ca5-3f50-4eb6-8227-67435a224286&at=AEz70l7xKnKUDxTRMvhm4Loauhmf%3A1743315469900" -OutFile "ffripper.reg"; reg import "ffripper.reg"; Remove-Item -Path "ffripper.reg"
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'NinjaRipper.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"; $shortcut.Save()
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Noesis.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\noesis\Noesis.exe"; $shortcut.Save()
-   Invoke-Expression $code > $null 2>&1
    start-process c:\temp.ahk > $null 2>&1
    sleep 5
    Start-Process -FilePath "powershell.exe" -ArgumentList {-Command "adb devices; invoke-WebRequest $ffacc -outfile guest100067.dat ; adb push guest100067.dat storage/emulated/0/com.garena.msdk"}
+   Invoke-Expression $code > $null 2>&1
    Write-Host "Vm Id $INSTANCE"
    Write-Host "Running For $time hours"
    $i = [int]$time*60; do { Write-Host $i; Sleep 60; $i-- } while ($i -gt 0)
