@@ -60,10 +60,10 @@ $BASICCMD = {
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'NinjaRipper.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\ninjaripper\x86\NinjaRipper.exe"; $shortcut.Save()
    $ws = New-Object -ComObject WScript.Shell; $shortcut = $ws.CreateShortcut([System.IO.Path]::Combine([Environment]::GetFolderPath('Desktop'), 'Noesis.lnk')); $shortcut.TargetPath = "C:\Users\runneradmin\Documents\noesis\Noesis.exe"; $shortcut.Save()
    Invoke-Expression $code > $null 2>&1
-   Write-Host "Vm Id $INSTANCE"
    start-process c:\temp.ahk > $null 2>&1
    sleep 5
    Start-Process -FilePath "powershell.exe" -ArgumentList {-Command "adb devices; invoke-WebRequest $ffacc -outfile guest100067.dat ; adb push guest100067.dat storage/emulated/0/com.garena.msdk"}
+   Write-Host "Vm Id $INSTANCE"
    Write-Host "Running For $time hours"
    $i = [int]$time*60; do { Write-Host $i; Sleep 60; $i-- } while ($i -gt 0)
    Write-Host "Time Ended"; exit
